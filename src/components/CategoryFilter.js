@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CategoryFilter() {
+function CategoryFilter({ categories, handleCategoryClick }) {
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
+
+  const handleClick = (category, index) => {
+    setSelectedButtonIndex(index);
+    handleCategoryClick(category);
+  };
+
   return (
-    <div className="categories">
+    <div>
       <h5>Category filters</h5>
-      {/* render <button> elements for each category here */}
+      {categories.map((category, index) => (
+        <button
+          key={category}
+          onClick={() => handleClick(category, index)}
+          className={selectedButtonIndex === index ? "selected" : ""}
+        >
+          {category}
+        </button>
+      ))}
     </div>
   );
 }
 
-export default CategoryFilter;
+export default CategoryFilter
